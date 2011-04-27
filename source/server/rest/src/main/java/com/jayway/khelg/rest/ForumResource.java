@@ -4,9 +4,8 @@ import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.annotation.PostConstruct;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Date;
@@ -29,12 +28,15 @@ public class ForumResource {
         return Response.ok(json).build();
     }
 
+    @POST
     public Response addForum() {
-        throw new RuntimeException("not implemented");
+        throw new RuntimeException("add forum not implemented");
     }
 
-    public Response forum() {
-        throw new RuntimeException("not implemented");
+    @GET
+    @Path("/{id}")
+    public Response forum(@PathParam("id") String id) {
+        throw new RuntimeException("get by id not implemented");
     }
 
 }
