@@ -29,23 +29,6 @@
         <!-- The version of the Maven GAE plugin. -->
         <maven.gae.version>0.8.4</maven.gae.version>
 
-        <!-- The GAE application to use. For test and integration builds 
-            we're using "zwooshi-dev", and for release builds we're using "zwooshi-prod". -->
-        <gae.application.identifier>khelg2011.2</gae.application.identifier>
-
-        <!-- Upload to http://test.latest.<applicationName>.appspot.com by 
-            default -->
-        <gae.application.version>test</gae.application.version>
-
-        <!-- port defaults to 8080 -->
-        <gae.port>8080</gae.port>
-
-        <!-- The Maven provided appengine sdk. Run "mvn gae:unpack" to download 
-            and install this. -->
-        <gae.home>
-            ${user.home}/.m2/repository/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
-        </gae.home>
-
         <!-- The version of Spring to use. -->
         <org.springframework.version>3.0.5.RELEASE
         </org.springframework.version>

@@ -12,6 +12,26 @@
     <packaging>war</packaging>
     <name>KHelg 2011.2 Cloud GAE Webapp</name>
 
+    <properties>
+
+        <!-- The GAE application to use. -->
+        <gae.application.identifier>jayway-rest-demo</gae.application.identifier>
+
+        <!-- Upload to http://test.latest.<applicationName>.appspot.com by 
+            default -->
+        <gae.application.version>test</gae.application.version>
+
+        <!-- port defaults to 8080 -->
+        <gae.port>8080</gae.port>
+
+        <!-- The Maven provided appengine sdk. Run "mvn gae:unpack" to download 
+            and install this. -->
+        <gae.home>
+            ${user.home}/.m2/repository/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
+        </gae.home>
+
+    </properties>
+
     <repositories>
         <!-- <repository> -->
         <!-- <id>google-maven-repo</id> -->
@@ -119,7 +139,7 @@
 
 
 
- 
+
 
         <!-- These dependencies are here just for enabling logging -->
         <dependency>
