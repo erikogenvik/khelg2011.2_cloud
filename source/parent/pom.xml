@@ -241,7 +241,22 @@
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-json</artifactId>
                 <version>${jersey.version}</version>
+                <!-- We need to use an older version of JAXB on GAE, since the newer one will trigger calls to forbidden methods. -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-impl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
+
+            <!-- We need to use an older version of JAXB on GAE, since the newer one will trigger calls to forbidden methods. -->
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>2.1.13</version>
+            </dependency>
+
 
             <!-- Spring dependencies -->
             <dependency>

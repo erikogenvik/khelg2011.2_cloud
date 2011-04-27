@@ -26,10 +26,11 @@
         <servlet-name>rest-servlet</servlet-name>
         <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
         <!-- We add org.codehaus.jackson.jaxrs so that arrays and lists behave correctly (i.e. returns an array even for single elements) -->
-<!--         <init-param> -->
-<!--             <param-name>com.sun.jersey.config.property.packages</param-name> -->
-<!--             <param-value>com.jayway.khelg.rest;org.codehaus.jackson.jaxrs</param-value> -->
-<!--         </init-param> -->
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.jayway.khelg.rest;org.codehaus.jackson.jaxrs</param-value>
+        </init-param>
+        <!-- We need to disable WADL in order to work on GAE, as having it enabled will trigger some calls to forbidden methods. -->
         <init-param>
             <param-name>com.sun.jersey.config.feature.DisableWADL</param-name>
             <param-value>true</param-value>
