@@ -1,12 +1,32 @@
 package com.jayway.khelg.rest;
 
-import javax.xml.ws.Response;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Component;
 
-//@Path()
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+@Component
+@Path("/")
 public class ForumResource {
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response listForums() {
-        throw new RuntimeException("not implemented");
+        Map<String, String> sysinfo = new LinkedHashMap<String, String>();
+        sysinfo.put("Current server date and time", new Date().toString());
+
+        JSONObject json = new JSONObject();
+        json.put("systeminfo", sysinfo);
+
+        return Response.ok(json).build();
     }
 
     public Response addForum() {
