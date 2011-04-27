@@ -4,13 +4,13 @@ import java.util.Collection;
 
 public interface Topic {
 
-	/**
-	 * Gets the header of the topic.
-	 * 
-	 * @return
-	 */
-	String getHeader();
+    /**
+     * Gets the header of the topic.
+     * 
+     * @return
+     */
+    String getHeader();
 
-	Collection<Entry> getEntries();
+    Collection<Entry> getEntries();
 
 }

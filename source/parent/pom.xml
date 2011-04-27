@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jayway.khelg</groupId>
     <artifactId>parent</artifactId>
@@ -10,35 +10,38 @@
         <name>Jayway</name>
     </organization>
     <properties>
-        <!-- Use UTF-8 for all source code and resources, instead of "System Default". -->
+        <!-- Use UTF-8 for all source code and resources, instead of "System 
+            Default". -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- This is just for "eclipse:eclipse" goal to always attempt downloading
-              sources -->
+        <!-- This is just for "eclipse:eclipse" goal to always attempt downloading 
+            sources -->
         <downloadSources>true</downloadSources>
 
         <!-- The version of the Maven compiler plugin to use. -->
         <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
 
-        <!-- Specify AppEngine version for your project. It should match SDK version
-              pointed to by ${gae.home} property (Typically, one used by your Eclipse plug-in) -->
+        <!-- Specify AppEngine version for your project. It should match 
+            SDK version pointed to by ${gae.home} property (Typically, one used by your 
+            Eclipse plug-in) -->
         <gae.version>1.4.3</gae.version>
 
         <!-- The version of the Maven GAE plugin. -->
         <maven.gae.version>0.8.4</maven.gae.version>
 
-        <!-- The GAE application to use. For test and integration builds we're
-              using "zwooshi-dev", and for release builds we're using "zwooshi-prod". -->
+        <!-- The GAE application to use. For test and integration builds 
+            we're using "zwooshi-dev", and for release builds we're using "zwooshi-prod". -->
         <gae.application.identifier>khelg2011.2</gae.application.identifier>
 
-        <!-- Upload to http://test.latest.<applicationName>.appspot.com by default -->
+        <!-- Upload to http://test.latest.<applicationName>.appspot.com by 
+            default -->
         <gae.application.version>test</gae.application.version>
 
         <!-- port defaults to 8080 -->
         <gae.port>8080</gae.port>
 
-        <!-- The Maven provided appengine sdk. Run "mvn gae:unpack" to download
-              and install this. -->
+        <!-- The Maven provided appengine sdk. Run "mvn gae:unpack" to download 
+            and install this. -->
         <gae.home>
             ${user.home}/.m2/repository/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
         </gae.home>
@@ -47,8 +50,8 @@
         <org.springframework.version>3.0.5.RELEASE
         </org.springframework.version>
 
-        <!-- The version of Spring to use for features which lag behind. Normally
-              one point release behind org.springframework.version. -->
+        <!-- The version of Spring to use for features which lag behind. 
+            Normally one point release behind org.springframework.version. -->
         <org.springframework.version.lag-behind>3.0.4.RELEASE
         </org.springframework.version.lag-behind>
 

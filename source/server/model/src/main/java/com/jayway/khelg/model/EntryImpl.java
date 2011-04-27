@@ -9,23 +9,23 @@ import com.jayway.khelg.domain.Entry;
 @PersistenceCapable
 public class EntryImpl implements Entry {
 
-	private Date date;
-	private String header;
-	private String message;
+    private Date date;
+    private String header;
+    private String message;
 
-	@Override
-	public Date getDate() {
-		return date;
-	}
+    @Override
+    public Date getDate() {
+        return date;
+    }
 
-	@Override
-	public String getHeader() {
-		return header;
-	}
+    @Override
+    public String getHeader() {
+        return header;
+    }
 
-	@Override
-	public String getMessage() {
-		return message;
-	}
+    @Override
+    public String getMessage() {
+        return message;
+    }
 
 }

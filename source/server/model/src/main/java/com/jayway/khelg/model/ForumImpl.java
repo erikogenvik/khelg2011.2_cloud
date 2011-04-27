@@ -10,23 +10,23 @@ import com.jayway.khelg.domain.Topic;
 @PersistenceCapable
 public class ForumImpl implements Forum {
 
-	private String id;
-	private String name;
-	private Collection<Topic> topics;
+    private String id;
+    private String name;
+    private Collection<Topic> topics;
 
-	@Override
-	public String getId() {
-		return id;
-	}
+    @Override
+    public String getId() {
+        return id;
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public Collection<Topic> getTopics() {
-		return topics;
-	}
+    @Override
+    public Collection<Topic> getTopics() {
+        return topics;
+    }
 
 }

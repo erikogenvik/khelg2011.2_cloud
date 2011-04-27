@@ -4,10 +4,10 @@ import java.util.Date;
 
 public interface Entry {
 
-	public Date getDate();
+    public Date getDate();
 
-	public String getHeader();
-	
-	public String getMessage();
+    public String getHeader();
+
+    public String getMessage();
 
 }
