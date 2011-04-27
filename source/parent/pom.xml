@@ -29,7 +29,7 @@
 
 		<!-- The GAE application to use. For test and integration builds we're 
 			using "zwooshi-dev", and for release builds we're using "zwooshi-prod". -->
-		<gae.application.identifier>zwooshi-dev</gae.application.identifier>
+		<gae.application.identifier>khelg2011.2</gae.application.identifier>
 
 		<!-- Upload to http://test.latest.<applicationName>.appspot.com by default -->
 		<gae.application.version>test</gae.application.version>
@@ -42,10 +42,6 @@
 		<gae.home>${user.home}/.m2/repository/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
 		</gae.home>
 
-		<!-- The Facebook app id to use. This is the development id; when in release 
-			mode a different one should be used. -->
-		<facebook.appid>173779107098</facebook.appid>
-
 		<!-- The version of Spring to use. -->
 		<org.springframework.version>3.0.5.RELEASE
 		</org.springframework.version>
@@ -55,177 +51,15 @@
 		<org.springframework.version.lag-behind>3.0.4.RELEASE
 		</org.springframework.version.lag-behind>
 
-		<!-- The version of Spring Social to use. -->
-		<org.springframework.social.version>1.0.0.M1
-		</org.springframework.social.version>
-
 		<!-- The version of Slf4j to use. -->
 		<org.slf4j.version>1.6.1</org.slf4j.version>
-
-		<!-- The version of Slf4j to use for components which lag behind. -->
-		<org.slf4j.version.lag-behind>1.6.1-RC1</org.slf4j.version.lag-behind>
-
-		<!-- The version of powermock to use. -->
-		<powermock.version>1.4.8</powermock.version>
 
 		<!-- The version of Jersey to use. -->
 		<jersey.version>1.6</jersey.version>
 
-		<!-- The version of Google Android to use. -->
-		<android.version>2.1.2</android.version>
-
-		<!-- The version of org.json to use. -->
-		<org.json.version>20090211</org.json.version>
-
-		<!-- The version of junit to use. -->
-		<junit.version>4.8.2</junit.version>
-
-		<!-- The version of FindBugs to use. -->
-		<findbugs.version>2.3.1</findbugs.version>
-
-		<!-- The version of Jackson to use. -->
-		<org.codehaus.jackson.version>1.7.5</org.codehaus.jackson.version>
 	</properties>
 
-	<repositories>
-		<!-- zwooshi repositories are declared here to fetch built artifacts of 
-			our fork of Facebook Android SDK. If the Nexus server ever becomes unavailable, 
-			you can build the facebook artifact directly from the relevant release tag 
-			in the github repo: https://github.com/zwooshi/facebook-android-sdk-wip Then 
-			choose the release tag which corresponds to the facebook-android-sdk artifact 
-			version you depend on. -->
-		<repository>
-			<id>zwooshi-releases</id>
-			<url>http://46.51.174.205:8081/nexus/content/repositories/releases</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>zwooshi-snapshots</id>
-			<url>http://46.51.174.205:8081/nexus/content/repositories/snapshots</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
-	<pluginRepositories>
-		<!-- Mainly used for the snapshot of the FindBugs plugin. -->
-		<pluginRepository>
-			<id>snapshots.repository.codehaus.org</id>
-			<name>Codehaus Mojo Snapshot Repository</name>
-			<url>http://snapshots.repository.codehaus.org/</url>
-		</pluginRepository>
-		<!-- Mainly used for any snapshots of the Maven Android Plugin. -->
-		<pluginRepository>
-			<id>oss.sonatype.org-jayway-snapshots</id>
-			<name>Jayway OpenSource SNAPSHOTs on Sonatype.org</name>
-			<url>http://oss.sonatype.org/content/repositories/jayway-snapshots
-			</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-	<profiles>
-		<profile>
-			<!-- A profile to use for faster Android builds. This will skip the dex 
-				phase. -->
-			<id>fast-android-build</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-						<artifactId>maven-android-plugin</artifactId>
-						<configuration>
-							<generateApk>false</generateApk>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<!-- A profile to use for full Android builds. This will include the dex 
-				phase. You don't normally have to specify this, but it might be used if you 
-				want to override the fast-android-build profile. -->
-			<id>full-android-build</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-						<artifactId>maven-android-plugin</artifactId>
-						<configuration>
-							<generateApk>true</generateApk>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>integration-build</id>
-			<properties>
-				<gae.application.version>stage</gae.application.version>
-			</properties>
-		</profile>
-		<profile>
-			<id>release-build</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<properties>
-				<!-- When doing a release we'll be using the "zwooshi-prod" application. 
-					This is to separate the datastore in the prod from the stage and test builds. -->
-				<gae.application.identifier>zwooshi-prod
-				</gae.application.identifier>
-
-				<gae.application.version>release</gae.application.version>
-
-				<!-- The production Facebook app id. User: sonyericssonsocial@gmail.com 
-					App: life.contacts -->
-				<facebook.appid>191761490856052</facebook.appid>
-
-			</properties>
-		</profile>
-	</profiles>
-	<dependencies>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-easymock</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>3.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-			<version>${junit.version}</version>
-		</dependency>
-	</dependencies>
 	<dependencyManagement>
 		<dependencies>
 
@@ -245,18 +79,12 @@
 				<artifactId>server-gae</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
-
 			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>1.6.2</version>
+				<groupId>com.jayway.khelg</groupId>
+				<artifactId>server-rest</artifactId>
+				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.json</groupId>
-				<artifactId>json</artifactId>
-				<version>${org.json.version}</version>
-			</dependency>
+
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
@@ -286,13 +114,6 @@
 				<artifactId>slf4j-simple</artifactId>
 				<version>${org.slf4j.version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-android</artifactId>
-				<version>${org.slf4j.version.lag-behind}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
@@ -305,39 +126,6 @@
 				<version>1.2.16</version>
 			</dependency>
 
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>r09</version>
-			</dependency>
-
-			<!-- Client specific -->
-			<dependency>
-				<groupId>com.google.android</groupId>
-				<artifactId>android</artifactId>
-				<scope>provided</scope>
-				<version>${android.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.android</groupId>
-				<artifactId>android-test</artifactId>
-				<scope>provided</scope>
-				<version>${android.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpclient</artifactId>
-				<!-- This is bound to 4.0.1 for Android. Server components are free to 
-					use a newer version. -->
-				<version>4.0.1</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.facebook.android</groupId>
-				<artifactId>facebook-android-sdk</artifactId>
-				<type>apklib</type>
-				<version>1.5.1-SONYERICSSON-1</version>
-			</dependency>
 
 			<!-- Server specific -->
 
@@ -379,13 +167,6 @@
 				<artifactId>appengine-tools-sdk</artifactId>
 				<version>${gae.version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>com.google.appengine</groupId>
-				<artifactId>appengine-jsr107cache</artifactId>
-				<version>${gae.version}</version>
-			</dependency>
-
 
 			<!-- GAE data store dependencies (we use JDO only) -->
 			<dependency>
@@ -457,62 +238,6 @@
 				<groupId>com.sun.jersey</groupId>
 				<artifactId>jersey-json</artifactId>
 				<version>${jersey.version}</version>
-				<exclusions>
-					<!-- Exclude Jackson as they conflict with the version included by spring-social-facebook. 
-						Don't forget to include the dependencies needed, with more recent versions. -->
-					<exclusion>
-						<groupId>org.codehaus.jackson</groupId>
-						<artifactId>jackson-core-asl</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.codehaus.jackson</groupId>
-						<artifactId>jackson-mapper-asl</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.codehaus.jackson</groupId>
-						<artifactId>jackson-jaxrs</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.codehaus.jackson</groupId>
-						<artifactId>jackson-xc</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-
-
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-core-asl</artifactId>
-				<version>${org.codehaus.jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
-				<version>${org.codehaus.jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-jaxrs</artifactId>
-				<version>${org.codehaus.jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-xc</artifactId>
-				<version>${org.codehaus.jackson.version}</version>
-			</dependency>
-
-			<!-- Java dependencies -->
-
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-				<version>2.5</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.velocity</groupId>
-				<artifactId>velocity</artifactId>
-				<version>1.7</version>
 			</dependency>
 
 			<!-- Spring dependencies -->
@@ -553,11 +278,6 @@
 				<version>${org.springframework.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.springframework.social</groupId>
-				<artifactId>spring-social-core</artifactId>
-				<version>${org.springframework.social.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
 				<version>${org.springframework.version}</version>
@@ -565,7 +285,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<inceptionYear>2010</inceptionYear>
+	<inceptionYear>2011</inceptionYear>
 	<build>
 
 		<plugins>
@@ -603,107 +323,16 @@
 					<version>2.1.1</version>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>2.3.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.5</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.7.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.5</version>
-				</plugin>
-				<plugin>
 					<groupId>net.kindleit</groupId>
 					<artifactId>maven-gae-plugin</artifactId>
 					<version>${maven.gae.version}</version>
-					<!-- <dependencies> -->
-					<!-- <dependency> -->
-					<!-- <groupId>net.kindleit</groupId> -->
-					<!-- <artifactId>gae-runtime</artifactId> -->
-					<!-- <version>${gae.version}</version> -->
-					<!-- <type>pom</type> -->
-					<!-- </dependency> -->
-					<!-- </dependencies> -->
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jarsigner-plugin</artifactId>
-					<version>1.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.5</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.groovy.maven</groupId>
-					<artifactId>gmaven-plugin</artifactId>
-					<version>1.0</version>
-				</plugin>
-				<plugin>
-					<groupId>com.pyx4me</groupId>
-					<artifactId>proguard-maven-plugin</artifactId>
-					<version>2.0.4</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>${findbugs.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.datanucleus</groupId>
 					<artifactId>maven-datanucleus-plugin</artifactId>
 					<version>1.1.4</version>
 				</plugin>
-				<plugin>
-					<groupId>com.googlecode.maven-overview-plugin</groupId>
-					<artifactId>maven-overview-plugin</artifactId>
-					<version>1.6</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.6</version>
-				</plugin>
-
 			</plugins>
 		</pluginManagement>
 	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>com.googlecode.maven-overview-plugin</groupId>
-				<artifactId>maven-overview-plugin</artifactId>
-				<version>1.6</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs.version}</version>
-				<configuration>
-					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-					<xmlOutput>true</xmlOutput>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 </project>
