@@ -2,14 +2,7 @@ package com.jayway.khelg.domain;
 
 import java.util.Collection;
 
-public interface Forum {
-
-    /**
-     * Gets the unique id of this forum.
-     * 
-     * @return The unique id of the forum.
-     */
-    String getId();
+public interface Forum extends Identifiable {
 
     /**
      * Gets the name of the forum, as a human readable string.
