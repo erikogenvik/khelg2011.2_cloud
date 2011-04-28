@@ -14,6 +14,11 @@ public class ForumImpl implements Forum {
     private String name;
     private Collection<Topic> topics;
 
+    public ForumImpl(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public long getId() {
         return id;

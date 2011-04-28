@@ -1,31 +1,46 @@
 package com.jayway.khelg.rest;
 
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import javax.annotation.PostConstruct;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.jayway.khelg.domain.Forum;
+import com.jayway.khelg.rest.dto.ForumDTO;
+import com.jayway.khelg.storage.ForumRepository;
 
 @Component
 @Path("/")
 public class ForumResource {
 
+    @Autowired
+    private ForumRepository forumRepository;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listForums() {
-        Map<String, String> sysinfo = new LinkedHashMap<String, String>();
-        sysinfo.put("Current server date and time", new Date().toString());
+    public Collection<ForumDTO> listForums() {
+        Collection<Forum> forums = forumRepository.getAll();
+        return translateToDTO(forums);
+    }
 
-        JSONObject json = new JSONObject();
-        json.put("systeminfo", sysinfo);
-
-        return Response.ok(json).build();
+    private Collection<ForumDTO> translateToDTO(Collection<Forum> forums) {
+        Collection<ForumDTO> dtos = new ArrayList<ForumDTO>();
+        for (Forum forum : forums) {
+            ForumDTO dto = new ForumDTO();
+            dto.id = forum.getId();
+            dto.name = forum.getName();
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     @POST
