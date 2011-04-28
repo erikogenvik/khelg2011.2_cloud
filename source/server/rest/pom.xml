@@ -77,6 +77,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
         <!-- other -->
         <dependency>
             <groupId>net.sf.json-lib</groupId>
@@ -84,6 +88,27 @@
             <version>2.3</version>
             <classifier>jdk15</classifier>
         </dependency>
+        
+        <dependency>
+            <groupId>javax.jdo</groupId>
+            <artifactId>jdo2-api</artifactId>
+            <exclusions>
+                <!-- exclude the legacy javax.transaction:transaction-api 
+                    and replace it with javax.transaction:jta (it appears to be the same thing) -->
+                <exclusion>
+                    <groupId>javax.transaction</groupId>
+                    <artifactId>transaction-api</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
     </dependencies>
 
 

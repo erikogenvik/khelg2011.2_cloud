@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <bean id="forumRepository" class="com.jayway.khelg.jdo.JDOForumRepository"></bean>
+
+    <!-- Enable Spring's @Transactional annotation -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- Needed for the Spring ORM integration. -->
+    <bean id="persistenceManagerFactory"
+        class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
+        <property name="persistenceManagerFactoryName" value="transactions-optional" />
+    </bean>
+
+    <!-- Needed for the Spring ORM integration. -->
+    <bean id="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager">
+        <property name="persistenceManagerFactory" ref="persistenceManagerFactory" />
+    </bean>
+
+    <!-- This is the main entry into using JDO. Use this bean whenever you need 
+        to access the database. -->
+    <bean id="jdoTemplate" class="org.springframework.orm.jdo.JdoTemplate">
+        <constructor-arg ref="persistenceManagerFactory" />
+    </bean>
+
+</beans>
