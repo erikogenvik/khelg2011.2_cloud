@@ -10,6 +10,7 @@ import javax.jdo.PersistenceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jdo.JdoCallback;
 import org.springframework.orm.jdo.JdoTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jayway.khelg.domain.Forum;
 import com.jayway.khelg.model.ForumImpl;
@@ -21,6 +22,7 @@ public class JDOForumRepository implements ForumRepository {
     JdoTemplate jdoTemplate;
 
     @Override
+    @Transactional
     public Collection<Forum> getAll() {
 
         return jdoTemplate.execute(new JdoCallback<Collection<Forum>>() {
@@ -40,6 +42,7 @@ public class JDOForumRepository implements ForumRepository {
     }
 
     @Override
+    @Transactional
     public void add(final Forum forum) {
         jdoTemplate.execute(new JdoCallback<Void>() {
 
@@ -53,6 +56,7 @@ public class JDOForumRepository implements ForumRepository {
     }
 
     @Override
+    @Transactional
     public Forum get(final long id) {
         return jdoTemplate.execute(new JdoCallback<Forum>() {
 

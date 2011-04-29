@@ -1,6 +1,8 @@
 package com.jayway.khelg.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -24,7 +26,12 @@ public class TopicImpl implements Topic {
     @Persistent
     private String header;
     @Persistent
-    private Collection<EntryImpl> entries;
+    private List<EntryImpl> entries;
+
+    public TopicImpl(String header) {
+        this.header = header;
+        this.entries = new ArrayList<EntryImpl>();
+    }
 
     @Override
     public long getId() {
@@ -39,6 +46,11 @@ public class TopicImpl implements Topic {
     @Override
     public Collection<? extends Entry> getEntries() {
         return entries;
+    }
+
+    public void addEntry(EntryImpl entry) {
+        entries.add(entry);
+
     }
 
 }

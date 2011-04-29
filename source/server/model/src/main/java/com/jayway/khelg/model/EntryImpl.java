@@ -27,6 +27,12 @@ public class EntryImpl implements Entry {
     @Persistent
     private String message;
 
+    public EntryImpl(String header, String message) {
+        this.date = new Date();
+        this.header = header;
+        this.message = message;
+    }
+
     @Override
     public long getId() {
         return id;
