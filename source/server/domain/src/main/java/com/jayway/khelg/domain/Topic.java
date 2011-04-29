@@ -11,6 +11,6 @@ public interface Topic extends Identifiable {
      */
     String getHeader();
 
-    Collection<Entry> getEntries();
+    Collection<? extends Entry> getEntries();
 
 }

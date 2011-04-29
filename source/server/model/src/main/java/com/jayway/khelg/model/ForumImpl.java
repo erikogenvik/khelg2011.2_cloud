@@ -2,17 +2,23 @@ package com.jayway.khelg.model;
 
 import java.util.Collection;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 import com.jayway.khelg.domain.Forum;
 import com.jayway.khelg.domain.Topic;
 
 @PersistenceCapable
 public class ForumImpl implements Forum {
-
-    private long id;
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Long id;
+    @Persistent
     private String name;
-    private Collection<Topic> topics;
+    @Persistent
+    private Collection<TopicImpl> topics;
 
     public ForumImpl(long id, String name) {
         this.id = id;
@@ -30,7 +36,7 @@ public class ForumImpl implements Forum {
     }
 
     @Override
-    public Collection<Topic> getTopics() {
+    public Collection<? extends Topic> getTopics() {
         return topics;
     }
 

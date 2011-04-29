@@ -2,7 +2,11 @@ package com.jayway.khelg.model;
 
 import java.util.Collection;
 
+import javax.jdo.annotations.Extension;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 import com.jayway.khelg.domain.Entry;
 import com.jayway.khelg.domain.Topic;
@@ -10,9 +14,17 @@ import com.jayway.khelg.domain.Topic;
 @PersistenceCapable
 public class TopicImpl implements Topic {
 
-    private long id;
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    @Extension(vendorName = "datanucleus", key = "gae.encoded-pk", value = "true")
+    private String key;
+
+    @Extension(vendorName = "datanucleus", key = "gae.pk-id", value = "true")
+    private Long id;
+    @Persistent
     private String header;
-    private Collection<Entry> entries;
+    @Persistent
+    private Collection<EntryImpl> entries;
 
     @Override
     public long getId() {
@@ -25,7 +37,7 @@ public class TopicImpl implements Topic {
     }
 
     @Override
-    public Collection<Entry> getEntries() {
+    public Collection<? extends Entry> getEntries() {
         return entries;
     }
 

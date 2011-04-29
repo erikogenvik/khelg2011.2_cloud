@@ -11,6 +11,6 @@ public interface Forum extends Identifiable {
      */
     String getName();
 
-    Collection<Topic> getTopics();
+    Collection<? extends Topic> getTopics();
 
 }
