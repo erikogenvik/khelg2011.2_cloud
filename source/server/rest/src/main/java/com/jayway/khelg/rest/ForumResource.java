@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jayway.khelg.domain.Forum;
+import com.jayway.khelg.model.ForumImpl;
 import com.jayway.khelg.rest.dto.ForumDTO;
 import com.jayway.khelg.storage.ForumRepository;
 
@@ -44,14 +46,20 @@ public class ForumResource {
     }
 
     @POST
-    public Response addForum() {
-        throw new RuntimeException("add forum not implemented");
+    public Response addForum(@QueryParam(value = "name") String name) {
+        Forum forum = new ForumImpl(name);
+        forumRepository.add(forum);
+        return Response.ok("Added forum").build();
     }
 
     @GET
     @Path("/{id}")
-    public Response forum(@PathParam("id") String id) {
-        throw new RuntimeException("get by id not implemented");
+    public ForumDTO forum(@PathParam("id") long id) {
+        Forum forum = forumRepository.get(id);
+        ForumDTO dto = new ForumDTO();
+        dto.id = forum.getId();
+        dto.name = forum.getName();
+        return dto;
     }
 
 }

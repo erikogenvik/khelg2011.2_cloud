@@ -23,4 +23,20 @@ public class StaticForumRepository implements ForumRepository {
         return forums;
     }
 
+    @Override
+    public void add(Forum forum) {
+        forums.add(forum);
+
+    }
+
+    @Override
+    public Forum get(long id) {
+        for (Forum forum : forums) {
+            if (forum.getId() == id) {
+                return forum;
+            }
+        }
+        return null;
+    }
+
 }

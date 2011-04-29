@@ -38,4 +38,28 @@ public class JDOForumRepository implements ForumRepository {
             }
         });
     }
+
+    @Override
+    public void add(final Forum forum) {
+        jdoTemplate.execute(new JdoCallback<Void>() {
+
+            @Override
+            public Void doInJdo(PersistenceManager pm) throws JDOException {
+                pm.makePersistent(forum);
+                return null;
+            }
+        });
+
+    }
+
+    @Override
+    public Forum get(final long id) {
+        return jdoTemplate.execute(new JdoCallback<Forum>() {
+
+            @Override
+            public Forum doInJdo(PersistenceManager pm) throws JDOException {
+                return pm.getObjectById(ForumImpl.class, id);
+            }
+        });
+    }
 }

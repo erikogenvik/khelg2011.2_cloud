@@ -20,9 +20,13 @@ public class ForumImpl implements Forum {
     @Persistent
     private Collection<TopicImpl> topics;
 
-    public ForumImpl(long id, String name) {
-        this.id = id;
+    public ForumImpl(String name) {
         this.name = name;
+    }
+
+    public ForumImpl(long id, String name) {
+        this(name);
+        this.id = id;
     }
 
     @Override
