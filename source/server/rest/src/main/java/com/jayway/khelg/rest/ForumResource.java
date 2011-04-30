@@ -68,6 +68,7 @@ public class ForumResource {
             dto.id = entry.getId();
             dto.header = entry.getHeader();
             dto.message = entry.getMessage();
+            dto.date = entry.getDate();
             dtos.add(dto);
         }
         return dtos;
