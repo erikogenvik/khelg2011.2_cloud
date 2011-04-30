@@ -2,7 +2,6 @@ package com.jayway.khelg.model;
 
 import java.util.Date;
 
-import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -15,11 +14,9 @@ public class EntryImpl implements Entry {
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    @Extension(vendorName = "datanucleus", key = "gae.encoded-pk", value = "true")
-    private String key;
-
-    @Extension(vendorName = "datanucleus", key = "gae.pk-id", value = "true")
     private Long id;
+    @Persistent
+    private long topicId;
     @Persistent
     private Date date;
     @Persistent
@@ -27,7 +24,8 @@ public class EntryImpl implements Entry {
     @Persistent
     private String message;
 
-    public EntryImpl(String header, String message) {
+    public EntryImpl(long topicId, String header, String message) {
+        this.topicId = topicId;
         this.date = new Date();
         this.header = header;
         this.message = message;

@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jayway.khelg.model.EntryImpl;
 import com.jayway.khelg.model.ForumImpl;
 import com.jayway.khelg.model.TopicImpl;
+import com.jayway.khelg.storage.EntryRepository;
 import com.jayway.khelg.storage.ForumRepository;
+import com.jayway.khelg.storage.TopicRepository;
 
 @Component
 @Path("/setup")
@@ -21,6 +23,11 @@ public class SetupResource {
 
     @Autowired
     private ForumRepository forumRepository;
+    @Autowired
+    private TopicRepository topicRepository;
+
+    @Autowired
+    private EntryRepository entryRepository;
 
     @GET
     @Path("forums")
@@ -29,10 +36,12 @@ public class SetupResource {
     public Response setupForums() {
 
         ForumImpl forum = new ForumImpl("Cars");
-        TopicImpl topic = new TopicImpl("Welcome!");
-        topic.addEntry(new EntryImpl("Welcome!", "Welcome to the cars forum."));
-        forum.addTopic(topic);
+        forum.setTopicRepository(topicRepository);
         forumRepository.add(forum);
+        TopicImpl topic = new TopicImpl(forum.getId(), "Welcome!");
+        topic.setEntryRepository(entryRepository);
+        forum.addTopic(topic);
+        topic.addEntry(new EntryImpl(topic.getId(), "Welcome!", "Welcome to the cars forum."));
         // forumRepository.add(new ForumImpl("Guns"));
         // forumRepository.add(new ForumImpl("Houses"));
         // forumRepository.add(new ForumImpl("Cats"));

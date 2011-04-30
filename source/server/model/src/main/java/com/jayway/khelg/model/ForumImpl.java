@@ -1,16 +1,16 @@
 package com.jayway.khelg.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.jayway.khelg.domain.Forum;
 import com.jayway.khelg.domain.Topic;
+import com.jayway.khelg.storage.TopicRepository;
 
 @PersistenceCapable
 public class ForumImpl implements Forum {
@@ -19,12 +19,11 @@ public class ForumImpl implements Forum {
     private Long id;
     @Persistent
     private String name;
-    @Persistent
-    private List<TopicImpl> topics;
+    @NotPersistent
+    private TopicRepository topicRepository;
 
     public ForumImpl(String name) {
         this.name = name;
-        this.topics = new ArrayList<TopicImpl>();
     }
 
     public ForumImpl(long id, String name) {
@@ -44,11 +43,15 @@ public class ForumImpl implements Forum {
 
     @Override
     public Collection<? extends Topic> getTopics() {
-        return topics;
+        return topicRepository.getAllForForum(id);
     }
 
     public void addTopic(TopicImpl topic) {
-        topics.add(topic);
+        topicRepository.add(topic);
+    }
+
+    public void setTopicRepository(TopicRepository repo) {
+        this.topicRepository = repo;
     }
 
 }

@@ -15,11 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jayway.khelg.domain.Forum;
 import com.jayway.khelg.model.ForumImpl;
 import com.jayway.khelg.storage.ForumRepository;
+import com.jayway.khelg.storage.TopicRepository;
 
 public class JDOForumRepository implements ForumRepository {
 
     @Autowired
     JdoTemplate jdoTemplate;
+
+    @Autowired
+    TopicRepository topicRepository;
 
     @Override
     @Transactional
@@ -34,6 +38,7 @@ public class JDOForumRepository implements ForumRepository {
                 Extent<ForumImpl> extent = pm.getExtent(ForumImpl.class);
 
                 for (ForumImpl forum : extent) {
+                    forum.setTopicRepository(topicRepository);
                     forums.add(forum);
                 }
                 return forums;
@@ -62,7 +67,11 @@ public class JDOForumRepository implements ForumRepository {
 
             @Override
             public Forum doInJdo(PersistenceManager pm) throws JDOException {
-                return pm.getObjectById(ForumImpl.class, id);
+                ForumImpl forum = pm.getObjectById(ForumImpl.class, id);
+                if (forum != null) {
+                    forum.setTopicRepository(topicRepository);
+                }
+                return forum;
             }
         });
     }

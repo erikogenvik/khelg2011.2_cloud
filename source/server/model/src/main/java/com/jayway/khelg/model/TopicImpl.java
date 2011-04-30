@@ -1,41 +1,44 @@
 package com.jayway.khelg.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.jayway.khelg.domain.Entry;
 import com.jayway.khelg.domain.Topic;
+import com.jayway.khelg.storage.EntryRepository;
 
 @PersistenceCapable
 public class TopicImpl implements Topic {
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    @Extension(vendorName = "datanucleus", key = "gae.encoded-pk", value = "true")
-    private String key;
-
-    @Extension(vendorName = "datanucleus", key = "gae.pk-id", value = "true")
     private Long id;
+
+    @Persistent
+    private long forumId;
     @Persistent
     private String header;
-    @Persistent
-    private List<EntryImpl> entries;
 
-    public TopicImpl(String header) {
+    @NotPersistent
+    private EntryRepository entryRepository;
+
+    public TopicImpl(long forumId, String header) {
+        this.forumId = forumId;
         this.header = header;
-        this.entries = new ArrayList<EntryImpl>();
     }
 
     @Override
     public long getId() {
         return id;
+    }
+
+    public long getForumId() {
+        return forumId;
     }
 
     @Override
@@ -45,12 +48,14 @@ public class TopicImpl implements Topic {
 
     @Override
     public Collection<? extends Entry> getEntries() {
-        return entries;
+        return entryRepository.getAllForTopic(id);
     }
 
     public void addEntry(EntryImpl entry) {
-        entries.add(entry);
-
+        entryRepository.add(entry);
     }
 
+    public void setEntryRepository(EntryRepository repo) {
+        this.entryRepository = repo;
+    }
 }
