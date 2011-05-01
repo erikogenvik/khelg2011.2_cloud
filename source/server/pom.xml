@@ -11,5 +11,6 @@
         <module>model</module>
         <module>rest</module>
         <module>gae</module>
+        <module>localdev</module>
     </modules>
 </project>
