@@ -49,6 +49,7 @@ public class DTOTranslator {
         dto.header = entry.getHeader();
         dto.message = entry.getMessage();
         dto.date = entry.getDate();
+        dto.addLink(uriInfo.getBaseUri().resolve("/entry/" + Long.toString(entry.getId())), "uri:khelg:entry");
         return dto;
     }
 
