@@ -41,4 +41,5 @@ exit
 drop database khelgforum;
 create database khelgforum character set utf8 collate utf8_general_ci; 
 
-# list tables show tables;
+# list tables 
+show tables;
