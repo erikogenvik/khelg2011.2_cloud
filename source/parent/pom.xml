@@ -53,12 +53,9 @@
             <url>http://download.java.net/maven/2/</url>
             <layout>default</layout>
         </repository>
-        <!-- <repository>
-            <id>maven-repository.java.net</id>
-            <name>Java.net Maven 1 Repository (legacy)</name>
-            <url>http://download.java.net/maven/1</url>
-            <layout>legacy</layout>
-        </repository> -->
+        <!-- <repository> <id>maven-repository.java.net</id> <name>Java.net 
+            Maven 1 Repository (legacy)</name> <url>http://download.java.net/maven/1</url> 
+            <layout>legacy</layout> </repository> -->
     </repositories>
 
 
@@ -121,6 +118,13 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${org.slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${org.slf4j.version}</version>
+                <scope>runtime</scope>
             </dependency>
 
             <dependency>
@@ -241,7 +245,8 @@
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-json</artifactId>
                 <version>${jersey.version}</version>
-                <!-- We need to use an older version of JAXB on GAE, since the newer one will trigger calls to forbidden methods. -->
+                <!-- We need to use an older version of JAXB on GAE, since 
+                    the newer one will trigger calls to forbidden methods. -->
                 <exclusions>
                     <exclusion>
                         <groupId>com.sun.xml.bind</groupId>
@@ -250,7 +255,8 @@
                 </exclusions>
             </dependency>
 
-            <!-- We need to use an older version of JAXB on GAE, since the newer one will trigger calls to forbidden methods. -->
+            <!-- We need to use an older version of JAXB on GAE, since the 
+                newer one will trigger calls to forbidden methods. -->
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-impl</artifactId>

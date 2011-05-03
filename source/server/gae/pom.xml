@@ -33,12 +33,6 @@
     </properties>
 
     <repositories>
-        <!-- <repository> -->
-        <!-- <id>google-maven-repo</id> -->
-        <!-- <name>Google Maven Repository</name> -->
-        <!-- <url>http://google-maven-repository.googlecode.com/svn/repository/ -->
-        <!-- </url> -->
-        <!-- </repository> -->
         <repository>
             <id>maven-gae-plugin-repo</id>
             <name>Maven Google App Engine Repository</name>
@@ -91,49 +85,13 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-labs</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-
-
         <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>javax.jdo</groupId>
-            <artifactId>jdo2-api</artifactId>
-            <exclusions>
-                <!-- exclude the legacy javax.transaction:transaction-api 
-                    and replace it with javax.transaction:jta (it appears to be the same thing) -->
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>transaction-api</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-
-
-
-
-        <!-- These dependencies are here just for enabling logging -->
+        <!-- Logging. -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -141,43 +99,9 @@
 
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>runtime</scope>
+            <artifactId>slf4j-jdk14</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.mail</groupId>
-                    <artifactId>mail</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.jms</groupId>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jdmk</groupId>
-                    <artifactId>jmxtools</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jmx</groupId>
-                    <artifactId>jmxri</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- Nice to have -->
-        <!-- <dependency> -->
-        <!-- <groupId>commons-lang</groupId> -->
-        <!-- <artifactId>commons-lang</artifactId> -->
-        <!-- </dependency> -->
-        <!-- <dependency> -->
-        <!-- <groupId>commons-io</groupId> -->
-        <!-- <artifactId>commons-io</artifactId> -->
-        <!-- </dependency> -->
     </dependencies>
 
 
