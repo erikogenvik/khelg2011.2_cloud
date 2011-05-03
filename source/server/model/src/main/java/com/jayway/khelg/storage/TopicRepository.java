@@ -3,7 +3,6 @@ package com.jayway.khelg.storage;
 import java.util.Collection;
 
 import com.jayway.khelg.domain.Topic;
-import com.jayway.khelg.model.TopicImpl;
 
 public interface TopicRepository {
     Collection<Topic> getAll();
@@ -14,6 +13,6 @@ public interface TopicRepository {
 
     Collection<? extends Topic> getAllForForum(Long id);
 
-    void addForForum(Long id, TopicImpl topic);
+    void addForForum(Long id, Topic topic);
 
 }

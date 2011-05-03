@@ -51,7 +51,7 @@ public class StaticEntryRepository implements EntryRepository {
     }
 
     @Override
-    public void addForTopic(Long id, EntryImpl entry) {
+    public void addForTopic(Long id, Entry entry) {
         throw new NotImplementedException();
     }
 

@@ -83,7 +83,7 @@ public class JDOEntryRepository implements EntryRepository {
     }
 
     @Override
-    public void addForTopic(Long id, EntryImpl topic) {
+    public void addForTopic(Long id, Entry entry) {
         // TODO Auto-generated method stub
 
     }

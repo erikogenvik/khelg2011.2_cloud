@@ -52,7 +52,7 @@ public class StaticTopicRepository implements TopicRepository {
     }
 
     @Override
-    public void addForForum(Long id, TopicImpl topic) {
+    public void addForForum(Long id, Topic topic) {
         throw new NotImplementedException();
     }
 

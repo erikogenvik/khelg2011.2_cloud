@@ -97,7 +97,7 @@ public class JDOTopicRepository implements TopicRepository {
     }
 
     @Override
-    public void addForForum(Long id, TopicImpl topic) {
+    public void addForForum(Long id, Topic topic) {
         // TODO Auto-generated method stub
 
     }
