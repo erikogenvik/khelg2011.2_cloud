@@ -31,6 +31,11 @@ public class ForumImpl implements Forum {
         this.id = id;
     }
 
+    public ForumImpl(TopicRepository topicRepository, long id, String name) {
+        this(id, name);
+        this.topicRepository = topicRepository;
+    }
+
     @Override
     public long getId() {
         return id;

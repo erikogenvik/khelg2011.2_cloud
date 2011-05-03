@@ -31,6 +31,11 @@ public class EntryImpl implements Entry {
         this.message = message;
     }
 
+    public EntryImpl(long id, long topicId, String header, String message) {
+        this(topicId, header, message);
+        this.id = id;
+    }
+
     @Override
     public long getId() {
         return id;
@@ -52,8 +57,7 @@ public class EntryImpl implements Entry {
     }
 
     @Override
-    public long getTopicId()
-    {
+    public long getTopicId() {
         return topicId;
     }
 }

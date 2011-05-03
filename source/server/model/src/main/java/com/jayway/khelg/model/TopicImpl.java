@@ -32,6 +32,16 @@ public class TopicImpl implements Topic {
         this.header = header;
     }
 
+    public TopicImpl(long id, long forumId, String header) {
+        this(forumId, header);
+        this.id = id;
+    }
+
+    public TopicImpl(EntryRepository entryRepository, long id, long forumId, String header) {
+        this(id, forumId, header);
+        this.entryRepository = entryRepository;
+    }
+
     @Override
     public long getId() {
         return id;
