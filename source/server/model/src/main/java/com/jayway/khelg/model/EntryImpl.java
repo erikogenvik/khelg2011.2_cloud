@@ -51,6 +51,7 @@ public class EntryImpl implements Entry {
         return message;
     }
 
+    @Override
     public long getTopicId()
     {
         return topicId;

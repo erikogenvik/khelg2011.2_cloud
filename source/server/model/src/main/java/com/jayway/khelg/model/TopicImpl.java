@@ -37,6 +37,7 @@ public class TopicImpl implements Topic {
         return id;
     }
 
+    @Override
     public long getForumId() {
         return forumId;
     }

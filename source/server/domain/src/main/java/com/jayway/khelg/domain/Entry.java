@@ -4,10 +4,12 @@ import java.util.Date;
 
 public interface Entry extends Identifiable{
 
-    public Date getDate();
+    Date getDate();
 
-    public String getHeader();
+    String getHeader();
 
-    public String getMessage();
+    String getMessage();
+
+    long getTopicId();
 
 }

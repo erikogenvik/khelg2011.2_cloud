@@ -26,7 +26,6 @@ public class StaticForumRepository implements ForumRepository {
     @Override
     public void add(Forum forum) {
         forums.add(forum);
-
     }
 
     @Override

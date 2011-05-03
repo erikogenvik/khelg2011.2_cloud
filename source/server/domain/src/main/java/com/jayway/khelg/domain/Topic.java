@@ -13,4 +13,5 @@ public interface Topic extends Identifiable {
 
     Collection<? extends Entry> getEntries();
 
+    long getForumId();
 }
