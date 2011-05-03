@@ -12,5 +12,6 @@
         <module>rest</module>
         <module>gae</module>
         <module>localdev</module>
+        <module>cloudfoundry</module>
     </modules>
 </project>

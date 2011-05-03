@@ -10,7 +10,7 @@
     <groupId>com.jayway.khelg</groupId>
     <artifactId>server-localdev</artifactId>
     <packaging>war</packaging>
-    <name>KHelg 2011.2 local dev Webapp</name>
+    <name>KHelg 2011.2 Cloud localdev Webapp</name>
 
     <properties>
 
