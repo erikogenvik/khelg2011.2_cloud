@@ -1,0 +1,93 @@
+1. Start our cloudfoundry vm.
+
+2. In the console of your vm, login with ubuntu:ubuntu
+
+3. run ifconfig
+check that the ip is at the same network as yours?
+if so continue to step 4 else read on:
+check that the network adapter is set to bridged and uses the same interface as u.
+then run in the console of your vm:
+sudo ifdown eth0
+sudo ifup eth0
+
+then run ifconfig. use the ip of the vm in the following cmds when the cmd contains <ip>
+
+4. from your host login to the vm with ssh (or putty if on wintendos), pwd is ubuntu
+ssh ubuntu@<ip>
+
+5. start vcap
+cd cloudfoundry/vcap/
+bin/vcap start
+
+6. create a tunnel from your host to the vm with cloudfoundry, on your host run:
+sudo ssh -L 80:<ip>:80 ubuntu@<ip> -N
+then keep this terminal running and start a new one to use for the next steps
+in the new terminal verify your tunnel:
+curl api.vcap.me
+
+7. on your host(in a new terminal), connect the vmc cli to your vm
+vmc target api.vcap.me 
+
+8. create an account
+vmc register
+
+9. Check info about your target cload (your vm) and your login
+vmc info
+
+10. create a simple sinatra app in a new dir
+mkdir myapp
+cd myapp
+
+create a simple sinatra based app save it to myapp.rb
+
+require 'sinatra'
+get '/' do
+  "Hello from Cloud Foundry"
+end
+
+11. deploy it to your local cloud, use myapp as name
+vmc push
+
+12. check your deploy
+vmc apps
+
+13. open a browser or curl and go to your deployed url
+curl myapp.vcap.me
+
+14. update your app
+replace the text in myapp.rb to printout host and port, and then save it.
+
+require 'rubygems'
+require 'sinatra'
+
+get '/' do
+  host = ENV['VMC_APP_HOST']
+  port = ENV['VMC_APP_PORT']
+  "<h1>Hello! via: #{host}:#{port}</h1>"
+end
+
+get '/env' do
+  res = ''
+  ENV.each do |k, v|
+    res << "#{k}: #{v}<br/>"
+  end
+  res
+end
+
+then run: 
+vmc update myapp
+
+when deployed brows your app again
+
+15. Scale your app to use 4 instances
+vmc instances myapp 4
+
+check with:
+vmc instances myapp
+
+run curl a few times and you se the port change in the output
+
+vmc instances myapp 1
+
+16. Deploy a "stage" version and the switch "prod"
+
