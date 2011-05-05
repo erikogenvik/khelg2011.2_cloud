@@ -34,7 +34,7 @@ public class ForumResource {
     @GET
     public Collection<ForumDTO> listForums(@Context UriInfo uriInfo) {
         Collection<Forum> forums = forumRepository.getAll();
-        return DTOTranslator. translateForumsToDTO(uriInfo, forums);
+        return DTOTranslator.translateForumsToDTO(uriInfo, forums);
     }
 
     @POST
@@ -46,12 +46,8 @@ public class ForumResource {
 
     @GET
     @Path("/{id}")
-    public ForumDTO get(@PathParam("id") long id) {
-        Forum forum = forumRepository.get(id);
-        ForumDTO dto = new ForumDTO();
-        dto.id = forum.getId();
-        dto.name = forum.getName();
-        return dto;
+    public ForumDTO get(@Context UriInfo uriInfo,@PathParam("id") long id) {
+        return DTOTranslator.translateForumToDTO(uriInfo, forumRepository.get(id));
     }
 
     @GET

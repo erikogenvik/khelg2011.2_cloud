@@ -21,6 +21,10 @@
             <artifactId>server-model</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
         <!-- jersey -->
         <dependency>
             <groupId>com.sun.jersey</groupId>

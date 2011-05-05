@@ -2,6 +2,8 @@ package com.jayway.khelg.setup;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ import com.jayway.khelg.storage.TopicRepository;
 
 @Component
 public class DataSetup {
+
+    private static final Logger log = LoggerFactory.getLogger(DataSetup.class);
     @Autowired
     private ForumRepository forumRepository;
 
@@ -28,6 +32,7 @@ public class DataSetup {
     @PostConstruct
     public void setup() {
         if (forumRepository.getAll().isEmpty()) {
+            log.info("No data in repository, initiating with basic data.");
             Forum forum = forumRepository.add(new ForumImpl("Cars"));
             Topic topic = topicRepository.add(new TopicImpl(forum.getId(), "Welcome to Car"));
             entryRepository.add(new EntryImpl(topic.getId(), "Welcome to Cars", "Some text about cars."));
@@ -43,6 +48,8 @@ public class DataSetup {
             forum = forumRepository.add(new ForumImpl("Cats"));
             topic = topicRepository.add(new TopicImpl(forum.getId(), "Welcome to Cats"));
             entryRepository.add(new EntryImpl(topic.getId(), "Welcome to Cats", "Some text about cats."));
+
+            log.info("Data created.");
 
         }
     }

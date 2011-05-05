@@ -17,12 +17,7 @@ public class DTOTranslator {
     public static Collection<ForumDTO> translateForumsToDTO(UriInfo uriInfo, Collection<Forum> forums) {
         Collection<ForumDTO> dtos = new ArrayList<ForumDTO>();
         for (Forum forum : forums) {
-            ForumDTO dto = new ForumDTO();
-            dto.id = forum.getId();
-            dto.name = forum.getName();
-            dto.addLink(uriInfo.getBaseUri().resolve(Long.toString(forum.getId())), "uri:khelg:forum");
-            dto.addLink(uriInfo.getBaseUri().resolve(Long.toString(forum.getId()) + "/topics"), "uri:khelg:forum:topics");
-            dtos.add(dto);
+            dtos.add(translateForumToDTO(uriInfo, forum));
         }
         return dtos;
     }
@@ -59,6 +54,16 @@ public class DTOTranslator {
         dto.header = topic.getHeader();
         dto.addLink(uriInfo.getBaseUri().resolve("/topic/" + Long.toString(topic.getId())), "uri:khelg:topic");
         dto.addLink(uriInfo.getBaseUri().resolve("/topic/" + Long.toString(topic.getId()) + "/entries"), "uri:khelg:topic:entries");
+        return dto;
+    }
+
+    public static ForumDTO translateForumToDTO(UriInfo uriInfo, Forum forum) {
+        ForumDTO dto = new ForumDTO();
+        dto.id = forum.getId();
+        dto.name = forum.getName();
+        dto.addLink(uriInfo.getBaseUri().resolve(Long.toString(forum.getId())), "uri:khelg:forum");
+        dto.addLink(uriInfo.getBaseUri().resolve(Long.toString(forum.getId()) + "/topics"), "uri:khelg:forum:topics");
+
         return dto;
     }
 
