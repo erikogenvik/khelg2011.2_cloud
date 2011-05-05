@@ -43,13 +43,13 @@ public class JDOEntryRepository implements EntryRepository {
 
     @Override
     @Transactional
-    public void add(final Entry item) {
-        jdoTemplate.execute(new JdoCallback<Void>() {
+    public Entry add(final Entry item) {
+        return jdoTemplate.execute(new JdoCallback<Entry>() {
 
             @Override
-            public Void doInJdo(PersistenceManager pm) throws JDOException {
+            public Entry doInJdo(PersistenceManager pm) throws JDOException {
                 pm.makePersistent(item);
-                return null;
+                return item;
             }
         });
     }

@@ -3,8 +3,6 @@ package com.jayway.khelg.mock;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jayway.khelg.domain.Forum;
@@ -21,14 +19,6 @@ public class StaticForumRepository implements ForumRepository {
 
     public StaticForumRepository() {
     }
-    
-    @PostConstruct
-    public void setup() {
-        forums.add(new ForumImpl(topicRepository, 1, "Cars"));
-        forums.add(new ForumImpl(topicRepository, 2, "Guns"));
-        forums.add(new ForumImpl(topicRepository, 3, "Houses"));
-        forums.add(new ForumImpl(topicRepository, 4, "Cats"));
-    }
 
     @Override
     public Collection<Forum> getAll() {
@@ -36,8 +26,10 @@ public class StaticForumRepository implements ForumRepository {
     }
 
     @Override
-    public void add(Forum forum) {
-        forums.add(forum);
+    public Forum add(Forum forum) {
+        Forum newForum = new ForumImpl(topicRepository, forums.size() + 1, forum.getName());
+        forums.add(newForum);
+        return newForum;
     }
 
     @Override

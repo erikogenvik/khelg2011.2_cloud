@@ -8,7 +8,7 @@ public interface ForumRepository {
 
     Collection<Forum> getAll();
 
-    void add(Forum item);
+    Forum add(Forum item);
 
     Forum get(long id);
     

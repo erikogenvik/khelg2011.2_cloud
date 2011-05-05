@@ -24,7 +24,7 @@ import com.jayway.khelg.storage.TopicRepository;
 public class TopicResource {
 
     @Autowired
-    TopicRepository topicRepository;
+    private TopicRepository topicRepository;
 
     @GET
     @Path("/{id}")

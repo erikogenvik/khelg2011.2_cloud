@@ -7,7 +7,7 @@ import com.jayway.khelg.domain.Entry;
 public interface EntryRepository {
     Collection<Entry> getAll();
 
-    void add(Entry item);
+    Entry add(Entry item);
 
     Entry get(long id);
 

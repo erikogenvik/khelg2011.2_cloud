@@ -3,8 +3,6 @@ package com.jayway.khelg.mock;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,22 +21,16 @@ public class StaticTopicRepository implements TopicRepository {
     public StaticTopicRepository() {
     }
 
-    @PostConstruct
-    public void setup() {
-        topics.add(new TopicImpl(entryRepository, 1, 1, "Welcome to Cars"));
-        topics.add(new TopicImpl(entryRepository, 2, 2, "Welcome to Guns"));
-        topics.add(new TopicImpl(entryRepository, 3, 3, "Welcome to Houses"));
-        topics.add(new TopicImpl(entryRepository, 4, 4, "Welcome to Cats"));
-    }
-
     @Override
     public Collection<Topic> getAll() {
         return topics;
     }
 
     @Override
-    public void add(Topic item) {
-        topics.add(item);
+    public Topic add(Topic item) {
+        Topic newItem = new TopicImpl(entryRepository, topics.size() + 1, item.getForumId(), item.getHeader());
+        topics.add(newItem);
+        return newItem;
     }
 
     @Override

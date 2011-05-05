@@ -20,7 +20,7 @@ import com.jayway.khelg.storage.EntryRepository;
 import com.jayway.khelg.storage.TopicRepository;
 
 public class JDOTopicRepository implements TopicRepository {
-    
+
     @Autowired
     JdoTemplate jdoTemplate;
 
@@ -49,13 +49,13 @@ public class JDOTopicRepository implements TopicRepository {
 
     @Override
     @Transactional
-    public void add(final Topic item) {
-        jdoTemplate.execute(new JdoCallback<Void>() {
+    public Topic add(final Topic item) {
+        return jdoTemplate.execute(new JdoCallback<Topic>() {
 
             @Override
-            public Void doInJdo(PersistenceManager pm) throws JDOException {
+            public Topic doInJdo(PersistenceManager pm) throws JDOException {
                 pm.makePersistent(item);
-                return null;
+                return item;
             }
         });
     }

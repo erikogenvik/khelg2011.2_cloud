@@ -3,8 +3,6 @@ package com.jayway.khelg.mock;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.lang.NotImplementedException;
 
 import com.jayway.khelg.domain.Entry;
@@ -18,22 +16,16 @@ public class StaticEntryRepository implements EntryRepository {
     public StaticEntryRepository() {
     }
 
-    @PostConstruct
-    public void setup() {
-        entries.add(new EntryImpl(1, 1, "Welcome to Cars", "Some text about cars."));
-        entries.add(new EntryImpl(2, 2, "Welcome to Guns", "Some text about guns."));
-        entries.add(new EntryImpl(3, 3, "Welcome to Houses", "Some text about houses."));
-        entries.add(new EntryImpl(4, 4, "Welcome to Cats", "Some text about cats."));
-    }
-
     @Override
     public Collection<Entry> getAll() {
         return entries;
     }
 
     @Override
-    public void add(Entry item) {
-        entries.add(item);
+    public Entry add(Entry item) {
+        Entry newItem = new EntryImpl(entries.size() + 1, item.getTopicId(), item.getHeader(), item.getMessage());
+        entries.add(newItem);
+        return newItem;
     }
 
     @Override

@@ -22,7 +22,7 @@ import com.jayway.khelg.storage.EntryRepository;
 public class EntryResource {
 
     @Autowired
-    EntryRepository entryRepository;
+    private EntryRepository entryRepository;
 
     @GET
     @Path("/{id}")

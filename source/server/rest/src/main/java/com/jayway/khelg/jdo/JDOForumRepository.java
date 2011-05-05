@@ -48,13 +48,13 @@ public class JDOForumRepository implements ForumRepository {
 
     @Override
     @Transactional
-    public void add(final Forum forum) {
-        jdoTemplate.execute(new JdoCallback<Void>() {
+    public Forum add(final Forum forum) {
+        return jdoTemplate.execute(new JdoCallback<Forum>() {
 
             @Override
-            public Void doInJdo(PersistenceManager pm) throws JDOException {
+            public Forum doInJdo(PersistenceManager pm) throws JDOException {
                 pm.makePersistent(forum);
-                return null;
+                return forum;
             }
         });
 

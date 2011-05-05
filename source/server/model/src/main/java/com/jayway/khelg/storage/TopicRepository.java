@@ -7,7 +7,7 @@ import com.jayway.khelg.domain.Topic;
 public interface TopicRepository {
     Collection<Topic> getAll();
 
-    void add(Topic item);
+    Topic add(Topic item);
 
     Topic get(long id);
 
