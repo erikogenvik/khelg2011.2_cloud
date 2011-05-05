@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cloud="http://schema.cloudfoundry.org/spring"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://schema.cloudfoundry.org/spring
+          http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.6.xsd">
+
+    <bean id="forumRepository" class="com.jayway.khelg.jdo.JDOForumRepository"></bean>
+    <bean id="topicRepository" class="com.jayway.khelg.jdo.JDOTopicRepository"></bean>
+    <bean id="entryRepository" class="com.jayway.khelg.jdo.JDOEntryRepository"></bean>
+
+    <!-- Enable Spring's @Transactional annotation -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="persistenceManagerFactory"
+          class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
+        <property name="jdoProperties">
+            <props>
+                <prop key="javax.jdo.PersistenceManagerFactoryClass">
+                    org.datanucleus.jdo.JDOPersistenceManagerFactory
+                </prop>
+                <prop key="javax.jdo.option.ConnectionURL">#{systemProperties['JDBC_CONNECTION_STRING']}</prop>
+                <prop key="javax.jdo.option.NontransactionalRead">true</prop>
+                <prop key="javax.jdo.option.NontransactionalWrite">true</prop>
+                <prop key="javax.jdo.option.RetainValues">true</prop>
+                <prop key="javax.jdo.option.DetachAllOnCommit">true</prop>
+                <prop key="datanucleus.autoCreateSchema">true</prop>
+                <prop key="datanucleus.autoCreateTables">true</prop>
+                <prop key="datanucleus.autoCreateColumns">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Needed for the Spring ORM integration. -->
+    <bean id="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager">
+        <property name="persistenceManagerFactory" ref="persistenceManagerFactory"/>
+    </bean>
+
+    <!-- This is the main entry into using JDO. Use this bean whenever you need
+to access the database. -->
+    <bean id="jdoTemplate" class="org.springframework.orm.jdo.JdoTemplate">
+        <constructor-arg ref="persistenceManagerFactory"/>
+    </bean>
+
+</beans>
