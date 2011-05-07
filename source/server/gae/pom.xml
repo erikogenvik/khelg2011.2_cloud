@@ -15,7 +15,7 @@
     <properties>
 
         <!-- The GAE application to use. -->
-        <gae.application.identifier>jayway-rest-demo</gae.application.identifier>
+        <gae.application.identifier>your_app_name_here</gae.application.identifier>
 
         <!-- Upload to http://test.latest.<applicationName>.appspot.com by 
             default -->
